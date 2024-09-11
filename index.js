@@ -1,5 +1,5 @@
 import { Command } from "commander"
-import { AddToExpenseList, GetSummery } from "./utils.js"
+import { AddToExpenseList, GetAllData, GetSummery } from "./utils.js"
 const program = new Command()
 
 program
@@ -22,5 +22,11 @@ program
     })
 
 
+program
+    .command("list")
+    .option("--category <category>")
+    .action((option) => {
+        GetAllData()
+    })
 
 program.parse(process.argv)

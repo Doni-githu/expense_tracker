@@ -1,4 +1,6 @@
+import { Console } from "console";
 import fs from "fs"
+import { Transform } from "stream";
 
 function WriteToJson(json) {
     fs.writeFileSync("./data.json", JSON.stringify(json))
@@ -19,8 +21,8 @@ function AddToExpenseList(options) {
 
 
         const data = {
-            date: new Date().toJSON().split("T")[0],
             id: result.length + 1,
+            date: new Date().toJSON().split("T")[0],
             description: options.description,
             amount: options.amount
         }
@@ -28,7 +30,7 @@ function AddToExpenseList(options) {
 
         const newList = [...result, data]
         fs.writeFileSync("./data.json", JSON.stringify(newList))
-        console.log(newList)
+        console.log(`Expense added successfully (ID: ${data.id})`)
     } else {
         console.log("Enter the right data")
     }
@@ -95,7 +97,33 @@ function GetSummery(month) {
     }
 }
 
+
+function table(input) {
+    // @see https://stackoverflow.com/a/67859384
+    const ts = new Transform({ transform(chunk, enc, cb) { cb(null, chunk) } })
+    const logger = new Console({ stdout: ts })
+    logger.table(input)
+    const table = (ts.read() || '').toString()
+    let result = '';
+    for (let row of table.split(/[\r\n]+/)) {
+        let r = row.replace(/[^┬]*┬/, '┌');
+        r = r.replace(/^├─*┼/, '├');
+        r = r.replace(/│[^│]*/, '');
+        r = r.replace(/^└─*┴/, '└');
+        r = r.replace(/'/g, ' ');
+        result += `${r}\n`;
+    }
+    console.log(result);
+}
+
+function GetAllData() {
+    const result = ReadFromJson()
+
+    table(result)
+}
+
 export {
     GetSummery,
-    AddToExpenseList
+    AddToExpenseList,
+    GetAllData
 }

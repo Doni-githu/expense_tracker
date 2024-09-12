@@ -1,1 +1,17 @@
-[{"id":1,"date":"2024-09-11","description":"Lunch","amount":"1.5"},{"id":2,"date":"2024-09-11","description":"Lunch","amount":"18"},{"id":3,"date":"2024-09-11","description":"Lunch","amount":"19"}]
+{
+    "data": [
+        {
+            "description": "Hello World 213",
+            "amount": "12",
+            "id": "1",
+            "category": "hello"
+        },
+        {
+            "id": 4,
+            "date": "2024-09-12",
+            "description": "Hello World 213",
+            "amount": "12",
+            "category": "two"
+        }
+    ]
+}

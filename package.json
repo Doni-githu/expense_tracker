@@ -11,6 +11,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "commander": "^12.1.0"
+    "@json2csv/plainjs": "^7.0.6",
+    "commander": "^12.1.0",
+    "csv-stringify": "^6.5.1",
+    "csv-writer": "^1.6.0"
   }
 }
